@@ -12,5 +12,6 @@ Board.prototype.initialize = function(ctx, lineWidth, fillColor, width, height) 
         x: width / this.squareSide,
         y: height / this.squareSide
     };
-    this.map = createArray([this.size.x, this.size.y], 'empty');
+    
+    this.map = createMultidimensionalArray([this.size.x, this.size.y], 'empty');
 };

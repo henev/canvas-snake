@@ -15,10 +15,3 @@ Food.prototype.render = function(ctx, boardSize, map) {
         this.render(ctx, boardSize, map);
     }
 };
-
-Food.prototype.eat = function(ctx, map, snakeBody, boardColor) {
-    ctx.fillStyle = boardColor;
-    ctx.fillRect(snakeBody[0].x, snakeBody[0].y, this.size, this.size);
-
-    map[snakeBody[0].x / this.size][snakeBody[0].y / this.size] = 'empty';
-};

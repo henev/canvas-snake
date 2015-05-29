@@ -56,28 +56,32 @@ Snake.prototype.move = function(ctx, map, boardWidth, boardHeight, boardColor, b
         y: lastHead.y + this.directions[this.currentDirection].y * this.headSize
     };
 
-    ctx.lineWidth = '0.5';
-
     var hasSnakeHitXWall = newHead.y < 0 || newHead.y > boardHeight - this.headSize;
     var hasSnakeHitYWall = newHead.x < 0 || newHead.x > boardWidth - this.headSize;
+    var hasSnakeHitItself = map[newHead.x / this.headSize][newHead.y / this.headSize] === 'snake';
 
-    if (hasSnakeHitXWall || hasSnakeHitYWall ||
-        map[newHead.x / this.headSize][newHead.y / this.headSize] === 'snake') {
-
+    // Check if the new head is on an obsticle - GAME OVER
+    if (hasSnakeHitXWall || hasSnakeHitYWall || hasSnakeHitItself) {
         clearInterval(this.animation);
         alert('Game Over!\nYour points are: ' + (this.body.length - 5) * 100);
 
         return false;
     }
 
+    // Remove the last snake piece if the new head is on an empty square
     if (map[newHead.x / this.headSize][newHead.y / this.headSize] === 'empty') {
-        food.eat(ctx, map, this.body, boardColor);
+        ctx.fillStyle = boardColor;
+        ctx.fillRect(this.body[0].x, this.body[0].y, this.headSize, this.headSize);
+
+        map[this.body[0].x / this.headSize][this.body[0].y / this.headSize] = 'empty';
 
         this.body.splice(0, 1);
+    // Render a new apple (food). Snake grows (we are not removing the last element)
     } else {
         food.render(ctx, boardSize, map);
     }
 
+    // Add the new head
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.strokeColor;
 
