@@ -56,12 +56,11 @@ Snake.prototype.move = function(ctx, map, boardWidth, boardHeight, boardColor, b
         y: lastHead.y + this.directions[this.currentDirection].y * this.headSize
     };
 
-    var hasSnakeHitXWall = newHead.y < 0 || newHead.y > boardHeight - this.headSize;
-    var hasSnakeHitYWall = newHead.x < 0 || newHead.x > boardWidth - this.headSize;
-    var hasSnakeHitItself = map[newHead.x / this.headSize][newHead.y / this.headSize] === 'snake';
+    var hasSnakeHitYWall = newHead.y < 0 || newHead.y > boardHeight - this.headSize;
+    var hasSnakeHitXWall = newHead.x < 0 || newHead.x > boardWidth - this.headSize;
 
     // Check if the new head is on an obsticle - GAME OVER
-    if (hasSnakeHitXWall || hasSnakeHitYWall || hasSnakeHitItself) {
+    if (hasSnakeHitXWall || hasSnakeHitYWall || map[newHead.x / this.headSize][newHead.y / this.headSize] === 'snake') {
         clearInterval(this.animation);
         alert('Game Over!\nYour points are: ' + (this.body.length - 5) * 100);
 
