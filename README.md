@@ -8,4 +8,4 @@ A simple snake game made with canvas and pure javascript. Control the snake with
 
 To reload the game simply refresh the page.
 
-See the demo [here](http://iceless58.github.io/canvas-snake/).
+See the demo [here](http://henev.github.io/canvas-snake/).
